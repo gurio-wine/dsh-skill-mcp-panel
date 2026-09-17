@@ -4,9 +4,8 @@
  * 与 Web 端共用 profile cordis.patch.yml 受管块和 mcp 模型；CLI 写盘后，
  * 运行中的网关由 DSH watchUserPatches 热加载，无需重启。
  */
-import { readFile } from "node:fs/promises";
 import { createInterface } from "node:readline";
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 import { resolveDshHome } from "@deepseek-ai/dsh-home-paths";
 import {
   extractManagedRows,
@@ -258,12 +257,4 @@ export async function runMcpCli(args: string[]): Promise<number> {
   console.error('未知命令 "' + command + '"');
   usage();
   return 2;
-}
-
-/** 读取 --env-file/--header-file JSON 对象（备用工具函数，暂未接入 add flags）。 */
-export async function readJsonSecretFile(path: string): Promise<Record<string, string>> {
-  const data = JSON.parse(await readFile(resolve(path), "utf8"));
-  if (data === null || typeof data !== "object" || Array.isArray(data)) throw new Error(path + " 顶层必须是 JSON 对象");
-  for (const value of Object.values(data as Record<string, unknown>)) if (typeof value !== "string") throw new Error(path + " 的值必须全部是字符串");
-  return data as Record<string, string>;
 }

@@ -41,12 +41,6 @@ export function getLoaderEntry(ctx: any, id: string): any | undefined {
   return undefined;
 }
 
-export function loaderEntries(ctx: any): any[] {
-  const loader = (ctx as any).loader;
-  if (loader === undefined || typeof loader.entries !== "function") return [];
-  return [...loader.entries()];
-}
-
 export function mcpToolCount(ctx: any, serverName: string): number {
   const tools = (ctx as any).tools;
   if (tools === undefined || typeof tools.schemas !== "function") return 0;
