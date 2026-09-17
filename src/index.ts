@@ -976,5 +976,5 @@ export function apply(ctx: any) {
   new SkillsViewerGateway(ctx);
   new McpManagerGateway(ctx);
   ctx.effect(() => ctx.typert.register(PANEL_MANIFEST), "dsh-skill-mcp-panel: typert manifest");
-  ctx.skills.registerProvider((control) => new NestedSkillProvider(NESTED_SKILL_RANK, control.signal, control.invalidate));
+  ctx.skills.registerProvider((control) => new NestedSkillProvider(NESTED_SKILL_RANK, control.signal, control.invalidate, ctx.logger));
 }

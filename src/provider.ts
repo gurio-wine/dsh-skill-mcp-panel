@@ -27,6 +27,7 @@ export class NestedSkillProvider {
     private readonly rank: number,
     signal: AbortSignal,
     invalidate: () => void,
+    private readonly logger?: { warn(message: string): void },
   ) {
     const watcher = chokidar.watch(this.roots(), {
       ignoreInitial: true,
@@ -58,7 +59,7 @@ export class NestedSkillProvider {
 
   async list(options: any = {}) {
     const roots = await buildRoots(options.cwd, this.homes());
-    const entries = await collectSkillEntries(roots);
+    const entries = await collectSkillEntries(roots, this.logger);
     const candidates: any[] = [];
     for (const entry of entries) {
       if (!entry.enabled) continue;
