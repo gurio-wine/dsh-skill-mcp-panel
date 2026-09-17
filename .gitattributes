@@ -1,0 +1,8 @@
+# Normalize line endings repo-wide: store LF, check out LF.
+# Without this, a global core.autocrlf=true rewrites checked-out .ts/.js files to
+# CRLF while tsconfig emits LF, so lib/*.js shows permanent "line-endings only"
+# modified noise in git status.
+* text=auto eol=lf
+
+# Binary assets: never apply line-ending conversion or text diffs.
+*.png binary
