@@ -365,10 +365,10 @@ const css = cssChrome + cssCards + cssAdd + cssScope + cssMigrate + cssCategory 
 		};
 
 		// ── 远程贡献 ─────────────────────────────────────────────────────────
-		// 客户端生成 Remote 只要求 codec.mode === "strict" 且调用 schema.parse()；
+		// 客户端生成 Remote 只要求 codec.mode === "strict" 且调用 create().parse()；
 		// schema 用 parse 直通即可（严格校验由服务端 manifest 承担，无需 zod 依赖）。
 		const identity = (value) => value;
-		const codec = (symbol) => ({ mode: "strict", typeSymbol: symbol, schema: { parse: identity } });
+		const codec = (symbol) => ({ mode: "strict", typeSymbol: symbol, create: () => ({ parse: identity }) });
 
 		const CONTRIBUTION = {
 			package: "dsh-skill-mcp-panel",
